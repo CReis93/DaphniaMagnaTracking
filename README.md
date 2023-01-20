@@ -16,13 +16,15 @@ trajr (TR) : Stopping time and sinuosity analysis (McLean DJ, Skowron Volponi MA
 
 av (AV) : cutting videos into images (https://CRAN.R-project.org/package=av).
 
-Target :
+## Target :
 
 The behavioural data obtained is analysed statistically to see the impact of the pesticide on the behaviour of Daphnia.
 
-Example of results : 
+## Example of results : 
 
+### Final image :
 <img src="https://user-images.githubusercontent.com/100361637/213686593-5da1a400-bc41-4835-a9f4-d62860f3d563.png" height="500">
 
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/100361637/213685524-7df0e820-b234-4953-b7bd-5609b568199d.gif)
+### Animation :
 
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/100361637/213685524-7df0e820-b234-4953-b7bd-5609b568199d.gif)
