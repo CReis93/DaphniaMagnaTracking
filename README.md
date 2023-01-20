@@ -24,4 +24,5 @@ Example of results :
 
 [imageSuivis_C1.pdf](https://github.com/CReis93/DaphniaMagnaTracking/files/10465807/imageSuivis_C1.pdf)
 
-https://user-images.githubusercontent.com/100361637/213684573-19e379c7-3c3c-4b22-88de-8d84f4969915.mp4
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/100361637/213685524-7df0e820-b234-4953-b7bd-5609b568199d.gif)
+
