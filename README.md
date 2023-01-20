@@ -20,5 +20,5 @@ Target :
 
 The behavioural data obtained is analysed statistically to see the impact of the pesticide on the behaviour of Daphnia.
 
-Results : 
+Example of results : 
 
