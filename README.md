@@ -22,7 +22,7 @@ The behavioural data obtained is analysed statistically to see the impact of the
 
 Example of results : 
 
-[imageSuivis_C1.pdf]
+![Sans titre](https://user-images.githubusercontent.com/100361637/213686593-5da1a400-bc41-4835-a9f4-d62860f3d563.png)
 
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/100361637/213685524-7df0e820-b234-4953-b7bd-5609b568199d.gif)
 
