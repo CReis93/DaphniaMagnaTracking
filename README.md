@@ -22,7 +22,7 @@ The behavioural data obtained is analysed statistically to see the impact of the
 
 Example of results : 
 
-[imageSuivis_C1.pdf](https://github.com/CReis93/DaphniaMagnaTracking/files/10465807/imageSuivis_C1.pdf)
+[imageSuivis_C1.pdf]
 
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/100361637/213685524-7df0e820-b234-4953-b7bd-5609b568199d.gif)
 
