@@ -230,15 +230,15 @@ for (o in 1:length(conc)){ # commencement de la boucle
   for (m in 1: nbre){
     
     # Definition de x, y, et temp
-    trajectoire <- data.frame(x = Place[c(m),,c(1)], # x
-                            y = Place[c(m),,c(2)], # y
-                            time = seq((180/step), 180, by = 180/step)) # temps
+    coords <- data.frame(x = Place[c(m),,c(1)], # x
+                         y = Place[c(m),,c(2)], # y
+                         time = seq((180/step), 180, by = 180/step)) # temps
   
     # mise a l'echelle de pixel en metre
-    trajectoire2 <- TrajFromCoords(trajectoire, spatialUnits = "pixels")
+    trj <- TrajFromCoords(coords, spatialUnits = "pixels")
   
     # Calcule le changement de direction
-    Tab_sin[m] <- TrajSinuosity2(trajectoire2)
+    Tab_sin[m] <- TrajSinuosity2(trj)
   
   }
   
