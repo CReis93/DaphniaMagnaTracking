@@ -260,7 +260,6 @@ for (o in 1:length(conc)){ # commencement de la boucle
     setwd("path")
     write.csv(data_all,file="donnees_comportements.csv")
     write.csv(donne.manq,file="imagesManquante.csv")
-    write.csv(seuil_vitesse,file="seuil_vitesse.csv")
     setwd("path")
     
   }
