@@ -2,7 +2,7 @@
 ####
 ####      Analyse du comportement_Exp daphnies
 ####      Auteur-trice : Christophe Reis & Floriane Tisserand
-####      Date version : 04/04/2023
+####      Date : 04/04/2023
 ####
 ####
 ####      source : 
@@ -21,7 +21,7 @@ library(av)
 library(trajr)
 
 # defini le WD
-setwd("/work/FAC/FGSE/IDYST/nchevre/comp_daph/")
+setwd("path")
 
 #~~~~~~~~~~~~~~~~~~~~ selection de l'experience ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -91,7 +91,7 @@ file.remove(list.files(path = "resultats/",
 
 #~~~~~~~~~~~~~~~~~~ Convert video to images sequence ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-for (o in 1:length(conc)){ # pour les videos de Floriane
+for (o in 1:length(conc)){ # commencement de la boucle
 
   # verification du depart d'une nouvelle boucle
   print(paste("On commence la concentration num :",o))
@@ -156,7 +156,7 @@ for (o in 1:length(conc)){ # pour les videos de Floriane
 
   #~~~~~~~~~~~~~~~~~~~ créer l'image de suivit et la video ~~~~~~~~~~~~~~~~~~~~~
   
-  setwd("/work/FAC/FGSE/IDYST/nchevre/comp_daph/resultats/imagesChemin")
+  setwd("path")
   ext <- ".pdf"
   name <- "imageSuivis_C"
   num <- as.character(o)
@@ -165,7 +165,7 @@ for (o in 1:length(conc)){ # pour les videos de Floriane
   par(mfrow=c(1,1))
   plot(records,type="trajectories",incThres=1) # affichage du resultat
   dev.off()
-  setwd("/work/FAC/FGSE/IDYST/nchevre/comp_daph/")
+  setwd("path")
 
   #plot(records,type="animation",incThres=1,
        #path="resultats/videoChemin/",
@@ -257,11 +257,11 @@ for (o in 1:length(conc)){ # pour les videos de Floriane
     images.manq.pour <- images.manq/compteur*100
     donne.manq <- cbind(images.manq,images.manq.pour)
     
-    setwd("/work/FAC/FGSE/IDYST/nchevre/comp_daph/resultats")
+    setwd("path")
     write.csv(data_all,file="donnees_comportements.csv")
     write.csv(donne.manq,file="imagesManquante.csv")
     write.csv(seuil_vitesse,file="seuil_vitesse.csv")
-    setwd("/work/FAC/FGSE/IDYST/nchevre/comp_daph/")
+    setwd("path")
     
   }
 
