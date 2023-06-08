@@ -2,7 +2,7 @@
 ####
 ####      Analyse du comportement_Exp daphnies
 ####      Auteur-trice : Christophe Reis & Floriane Tisserand
-####      Date : 04/04/2023
+####      Version du 19/04/2023
 ####
 ####
 ####      source : 
@@ -21,24 +21,24 @@ library(av)
 library(trajr)
 
 # defini le WD
-setwd("path")
+setwd("C:/Users/d4kro/Desktop/assitanat/2023/daphn/doc_présentation")
 
 #~~~~~~~~~~~~~~~~~~~~ selection de l'experience ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # ne runner que la ligne correspondantea l'experience
-#exp = "low_conc"
-exp = "high_conc_24h"
+exp = "low_conc"
+#exp = "high_conc_24h"
 #exp = "high_conc_48h"
 
 #~~~~~~~~~~~~~~~~~~ informations vidéos et DL vidéos ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 if(exp == "low_conc"){ # videos low conc.
-
+  
   conc <- c("C1","C2","C3","C4","C5","C6","C7","C8","C9","C10") # concentrations
   individus <- c(12,14,7,7,6,9,8,9,13,8) # nbre d'individus
   thres <- c(-0.12,-0.18,-0.16,-0.18,-0.21,-0.21,-0.115,-0.14,-0.18,-0.27) # seuil
   # telecharge les videos low conc.
-  list_mov <- list.files(path = "videos/brute", pattern = (".mp4"), full.names = TRUE)
+  list_mov <- list.files(path = "videos/brute/", pattern = (".mp4"), full.names = TRUE)
   
 }
 
@@ -57,6 +57,7 @@ if(exp == "high_conc_48h"){ # videos high conc. 48h
   conc <- c("c0","c1","c2","c3") # concentrations
   individus <- c(5,9,10,10) # nbre d'individus
   thres <- c(-0.115,-0.115,-0.07,-0.115) # seuil
+  images.remp <- c(0,0,0,0) # vct pour image manquante
   # telecharge les videos high conc. 48h 48H
   list_mov <- list.files(path = "videos/brute/48H", pattern = (".mp4"), full.names = TRUE)
   
@@ -65,9 +66,9 @@ if(exp == "high_conc_48h"){ # videos high conc. 48h
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ variables generales ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # nombre de FPS
-FramePS <- 15
+FramePS <- 1 # 15 FPS used in the analysis
 
-# creation tableau all_data pour sauvegarder les donnees
+# creation des matrices de sauvegarde des resultats
 data_all = matrix(ncol = 12)
 colnames(data_all) <- c("Concentration",
                         "distance [mm]",
@@ -96,8 +97,8 @@ file.remove(list.files(path = "resultats/",
 
 #~~~~~~~~~~~~~~~~~~ Convert video to images sequence ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-for (o in 1:length(conc)){ # commencement de la boucle
-
+for (o in 1:length(conc)){ # commence la boucle
+  
   # verification du depart d'une nouvelle boucle
   print(paste("On commence la concentration num :",o))
   
@@ -105,27 +106,27 @@ for (o in 1:length(conc)){ # commencement de la boucle
   file.remove(list.files(path = "videos/images", 
                          pattern = (".png"), 
                          full.names = TRUE))
-
+  
   # Coupe la video en images
   av_video_images(list_mov[o], 
                   destdir = "videos/images", 
                   format = "png", fps = FramePS)
-
+  
   #~~~~~~~~~~~~~~~~~~~~~~ telechargement des images ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- 
+  
   compteur <- length(list.files("videos/images"))-1 # compte le nombre d'images
   N.images <- c(1:compteur) # definie un vct avec le nombre d'image
   allFullImages <- loadImages (dirPictures = "videos/images",
                                nImages = N.images)
   
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~Suppression du bruit de fond~~~~~~~~~~~~~~~~~~~~~~
-
+  
   #1) Creation de l'image bruit de fond
   stillBack <- createBackground(allFullImages,method="mean")
-
+  
   #2) Suppression du fond 
   allImages <- subtractBackground(stillBack)
-
+  
   #~~~~~~~~~~~~~~~~~~~ Identification des particules mobiles ~~~~~~~~~~~~~~~~~~~
   
   partIden <- identifyParticles(allImages,
@@ -135,21 +136,21 @@ for (o in 1:length(conc)){ # commencement de la boucle
   print(summary(partIden)) # montre le resultat final pour controle
   
   #~~~~~~~~~~~~~~~~~~~~~~~~~ Enregistrement des mouvements ~~~~~~~~~~~~~~~~~~~~~
-
+  
   records <- trackParticles(partIden,L=200,R=3) # traque et lie les points. 
-
+  
   #~~~~~~~~~~~~~~~~~~~ créer l'image de suivit et la video ~~~~~~~~~~~~~~~~~~~~~
   
-  setwd("path")
+  setwd("C:/Users/d4kro/Desktop/assitanat/2023/daphn/doc_présentation/resultats/imagesChemin")
   pdf(file = paste("imageSuivis_C",as.character(o),".pdf",sep=""))
   par(mfrow=c(1,1))
   plot(records,type="trajectories",incThres=1) # affichage du resultat
   dev.off()
-  setwd("path")
-
+  setwd("C:/Users/d4kro/Desktop/assitanat/2023/daphn/doc_présentation")
+  
   plot(records,type="animation",incThres=1,
-       path="resultats/videoChemin/",
-       libavpath = "libav/usr/bin/avconv.exe") # creation video de suivis
+  path="resultats/videoChemin/",
+  libavpath = "libav/usr/bin/avconv.exe") # creation video de suivis
   file.rename(from="resultats/videoChemin/animation.mp4", 
               to = paste("resultats/videoChemin/",as.character(o),".mp4",sep="")) # renome le fichier
   
@@ -255,7 +256,7 @@ for (o in 1:length(conc)){ # commencement de la boucle
     Tab_SDDC[u] <- sapply(1:1, function(i) sd(TrajDirectionalChange(trj2[[i]])))
     
   }
-  
+    
   #~~~~~~~~~~~~~~~~~~~~~~~~Compilation de toutes les donnees~~~~~~~~~~~~~~~~~~~~
   
   data <- cbind(conc[o],
@@ -267,7 +268,7 @@ for (o in 1:length(conc)){ # commencement de la boucle
                 Tab_strait,
                 Tab_r,
                 Tab_sin,
-                Tab_Emax,
+                Tab_Emax, 
                 Tab_DC,
                 Tab_SDDC) # transforme les donnees en DF
   
@@ -286,19 +287,20 @@ for (o in 1:length(conc)){ # commencement de la boucle
   
   data_all <- rbind(data_all,data) # rajoute les donnees aux tableaux
   
-  if ( o == length(conc)){ 
+  if ( o == length(conc)){
     
     data_coords <- data_coords[,-1] # supprime la premiere colonne (NA)
     data_all <- data_all[-1,] # supprime la premiere ligne (NA)
     row.names(data_all) <- c(1:length(data_all[,1])) # change les index des lignes
     
-    setwd("path")
+    setwd("C:/Users/d4kro/Desktop/assitanat/2023/daphn/doc_présentation/resultats")
     write.csv(data_all,file="donnees_comportements.csv")
     write.csv(data_coords,file="coordonnes.csv")
-    setwd("path")
-    
-  }
+    setwd("C:/Users/d4kro/Desktop/assitanat/2023/daphn/doc_présentation")
 
+  }
+  
 }
 
 #-------------------------------- fin de script --------------------------------
+
